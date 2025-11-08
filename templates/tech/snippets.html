@@ -1,0 +1,134 @@
+{% extends 'base.html' %}
+
+{% block title %}Code Snippets - TechBlog{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row">
+        <div class="col-12">
+            <h1 class="mb-4 fade-in-up">Code Snippets</h1>
+            
+            <!-- Language Filter -->
+            <div class="card mb-4 fade-in-up">
+                <div class="card-body">
+                    <form method="GET" class="row g-3">
+                        <div class="col-md-8">
+                            <select name="language" class="form-select">
+                                <option value="">All Languages</option>
+                                <option value="html" {% if language == 'html' %}selected{% endif %}>HTML</option>
+                                <option value="css" {% if language == 'css' %}selected{% endif %}>CSS</option>
+                                <option value="js" {% if language == 'js' %}selected{% endif %}>JavaScript</option>
+                                <option value="python" {% if language == 'python' %}selected{% endif %}>Python</option>
+                                <option value="django" {% if language == 'django' %}selected{% endif %}>Django</option>
+                            </select>
+                        </div>
+                        <div class="col-md-2">
+                            <button type="submit" class="btn btn-primary w-100">Filter</button>
+                        </div>
+                        <div class="col-md-2">
+                            <a href="{% url 'snippets' %}" class="btn btn-outline-secondary w-100">Clear</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            
+            <!-- Snippets List -->
+            {% if snippets %}
+                <div class="row">
+                    {% for snippet in snippets %}
+                        <div class="col-12 mb-4 fade-in-up">
+                            <div class="card border-0 shadow-sm hover-effect">
+                                <div class="card-header bg-light d-flex justify-content-between align-items-center">
+                                    <h5 class="mb-0">{{ snippet.title }}</h5>
+                                    <span class="badge bg-primary">{{ snippet.get_language_display }}</span>
+                                </div>
+                                <div class="card-body">
+                                    <pre class="bg-dark text-light p-3 rounded"><code>{{ snippet.code }}</code></pre>
+                                    <div class="mt-3">
+                                        <small class="text-muted">
+                                            By {{ snippet.author.username }} on {{ snippet.created_at|date:"M d, Y" }}
+                                        </small>
+                                    </div>
+                                    <button class="btn btn-sm btn-outline-primary mt-2 copy-btn" 
+                                            data-clipboard-text="{{ snippet.code }}">
+                                        <i class="fas fa-copy me-1"></i>Copy to Clipboard
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+                
+                <!-- Pagination -->
+                {% if snippets.has_other_pages %}
+                <nav aria-label="Page navigation" class="mt-4 fade-in-up">
+                    <ul class="pagination justify-content-center">
+                        {% if snippets.has_previous %}
+                            <li class="page-item">
+                                <a class="page-link" href="?page={{ snippets.previous_page_number }}{% if language %}&language={{ language }}{% endif %}" tabindex="-1">Previous</a>
+                            </li>
+                        {% else %}
+                            <li class="page-item disabled">
+                                <a class="page-link" href="#" tabindex="-1">Previous</a>
+                            </li>
+                        {% endif %}
+                        
+                        {% for num in snippets.paginator.page_range %}
+                            {% if snippets.number == num %}
+                                <li class="page-item active"><a class="page-link" href="#">{{ num }}</a></li>
+                            {% else %}
+                                <li class="page-item"><a class="page-link" href="?page={{ num }}{% if language %}&language={{ language }}{% endif %}">{{ num }}</a></li>
+                            {% endif %}
+                        {% endfor %}
+                        
+                        {% if snippets.has_next %}
+                            <li class="page-item">
+                                <a class="page-link" href="?page={{ snippets.next_page_number }}{% if language %}&language={{ language }}{% endif %}">Next</a>
+                            </li>
+                        {% else %}
+                            <li class="page-item disabled">
+                                <a class="page-link" href="#">Next</a>
+                            </li>
+                        {% endif %}
+                    </ul>
+                </nav>
+                {% endif %}
+            {% else %}
+                <div class="text-center py-5 fade-in-up">
+                    <h3>No snippets found</h3>
+                    <p class="text-muted">There are no code snippets for the selected language.</p>
+                    <a href="{% url 'snippets' %}" class="btn btn-primary">View All Snippets</a>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.8/clipboard.min.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Initialize clipboard.js
+        if (typeof ClipboardJS !== 'undefined') {
+            new ClipboardJS('.copy-btn');
+            
+            // Show success message on copy
+            document.querySelectorAll('.copy-btn').forEach(button => {
+                button.addEventListener('click', function() {
+                    const originalText = this.innerHTML;
+                    this.innerHTML = '<i class="fas fa-check me-1"></i>Copied!';
+                    this.classList.remove('btn-outline-primary');
+                    this.classList.add('btn-success');
+                    
+                    setTimeout(() => {
+                        this.innerHTML = originalText;
+                        this.classList.remove('btn-success');
+                        this.classList.add('btn-outline-primary');
+                    }, 2000);
+                });
+            });
+        }
+    });
+</script>
+{% endblock %}

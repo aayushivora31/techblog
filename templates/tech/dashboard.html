@@ -1,0 +1,647 @@
+{% extends 'base.html' %}
+
+{% block title %}Dashboard - TechBlog{% endblock %}
+
+{% block content %}
+<div class="container-fluid py-4">
+    <!-- Enhanced Dashboard Header -->
+    <div class="row">
+        <div class="col-12 mb-4">
+            <div class="card border-0 shadow-sm">
+                <div class="card-body py-4">
+                    <div class="d-flex justify-content-between align-items-center flex-wrap">
+                        <div class="d-flex align-items-center">
+                            <div class="bg-primary bg-opacity-10 rounded-circle p-3 me-3">
+                                <i class="fas fa-chart-line text-primary fa-lg"></i>
+                            </div>
+                            <div>
+                                <h1 class="h2 mb-1">Dashboard</h1>
+                                <p class="text-muted mb-0">Welcome back, {{ user.username }}</p>
+                            </div>
+                        </div>
+                        
+                        <div class="d-flex align-items-center gap-2 mt-3 mt-md-0">
+                            <a href="{% url 'add_tutorial' %}" class="btn btn-primary">
+                                <i class="fas fa-book me-2"></i>New Tutorial
+                            </a>
+                            <a href="{% url 'add_article' %}" class="btn btn-outline-secondary">
+                                <i class="fas fa-newspaper me-2"></i>New Article
+                            </a>
+                            <div class="dropdown">
+                                <button class="btn btn-outline-dark rounded-circle profile-dropdown-btn" type="button" id="profileDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <i class="fas fa-user"></i>
+                                </button>
+                                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="profileDropdown">
+                                    <li><h6 class="dropdown-header">Signed in as</h6></li>
+                                    <li><span class="dropdown-item-text text-muted">{{ user.username }}</span></li>
+                                    <li><hr class="dropdown-divider"></li>
+                                    <li><a class="dropdown-item" href="#"><i class="fas fa-user-circle me-2"></i>Profile</a></li>
+                                    <li><a class="dropdown-item" href="#"><i class="fas fa-cog me-2"></i>Settings</a></li>
+                                    <li><hr class="dropdown-divider"></li>
+                                    <li><a class="dropdown-item" href="{% url 'logout' %}"><i class="fas fa-sign-out-alt me-2"></i>Logout</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content Area with Improved Balance -->
+    <div class="row g-4">
+        <!-- Left Column - Main Content -->
+        <div class="col-lg-8">
+            <!-- Stats Overview -->
+            <div class="row g-4 mb-4">
+                <div class="col-md-6 col-xl-3">
+                    <div class="card border-0 shadow-sm h-100">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div>
+                                    <h6 class="card-title text-muted mb-1">Tutorials</h6>
+                                    <h3 class="mb-0 text-primary">{{ user_tutorials.count }}</h3>
+                                </div>
+                                <div class="bg-primary bg-opacity-10 rounded-circle p-2">
+                                    <i class="fas fa-book text-primary"></i>
+                                </div>
+                            </div>
+                            <div class="mt-2">
+                                <small class="text-success">
+                                    <i class="fas fa-arrow-up me-1"></i>12%
+                                </small>
+                                <small class="text-muted">from last month</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-6 col-xl-3">
+                    <div class="card border-0 shadow-sm h-100">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div>
+                                    <h6 class="card-title text-muted mb-1">Articles</h6>
+                                    <h3 class="mb-0 text-info">{{ user_articles.count }}</h3>
+                                </div>
+                                <div class="bg-info bg-opacity-10 rounded-circle p-2">
+                                    <i class="fas fa-newspaper text-info"></i>
+                                </div>
+                            </div>
+                            <div class="mt-2">
+                                <small class="text-success">
+                                    <i class="fas fa-arrow-up me-1"></i>8%
+                                </small>
+                                <small class="text-muted">from last month</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-6 col-xl-3">
+                    <div class="card border-0 shadow-sm h-100">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div>
+                                    <h6 class="card-title text-muted mb-1">Snippets</h6>
+                                    <h3 class="mb-0 text-warning">{{ user_snippets.count }}</h3>
+                                </div>
+                                <div class="bg-warning bg-opacity-10 rounded-circle p-2">
+                                    <i class="fas fa-code text-warning"></i>
+                                </div>
+                            </div>
+                            <div class="mt-2">
+                                <small class="text-danger">
+                                    <i class="fas fa-arrow-down me-1"></i>3%
+                                </small>
+                                <small class="text-muted">from last month</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-6 col-xl-3">
+                    <div class="card border-0 shadow-sm h-100">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div>
+                                    <h6 class="card-title text-muted mb-1">Total Views</h6>
+                                    <h3 class="mb-0 text-success">1,248</h3>
+                                </div>
+                                <div class="bg-success bg-opacity-10 rounded-circle p-2">
+                                    <i class="fas fa-eye text-success"></i>
+                                </div>
+                            </div>
+                            <div class="mt-2">
+                                <small class="text-success">
+                                    <i class="fas fa-arrow-up me-1"></i>15%
+                                </small>
+                                <small class="text-muted">from last month</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Content Management -->
+            <div class="card border-0 shadow-sm">
+                <div class="card-header bg-white border-bottom">
+                    <h5 class="mb-0">Your Content</h5>
+                </div>
+                <div class="card-body">
+                    <ul class="nav nav-tabs mb-4" id="contentTabs" role="tablist">
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link active" id="tutorials-tab" data-bs-toggle="tab" data-bs-target="#tutorials" type="button" role="tab">
+                                <i class="fas fa-book me-1"></i>Tutorials
+                            </button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link" id="articles-tab" data-bs-toggle="tab" data-bs-target="#articles" type="button" role="tab">
+                                <i class="fas fa-newspaper me-1"></i>Articles
+                            </button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link" id="snippets-tab" data-bs-toggle="tab" data-bs-target="#snippets" type="button" role="tab">
+                                <i class="fas fa-code me-1"></i>Snippets
+                            </button>
+                        </li>
+                    </ul>
+                    
+                    <div class="tab-content" id="contentTabsContent">
+                        <!-- Tutorials Tab -->
+                        <div class="tab-pane fade show active" id="tutorials" role="tabpanel">
+                            {% if user_tutorials %}
+                                <div class="table-responsive">
+                                    <table class="table table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th>Title</th>
+                                                <th>Created</th>
+                                                <th>Actions</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {% for tutorial in user_tutorials|slice:":5" %}
+                                            <tr>
+                                                <td>
+                                                    <div class="d-flex align-items-center">
+                                                        {% if tutorial.image %}
+                                                            <img src="{{ tutorial.image.url }}" alt="{{ tutorial.title }}" class="rounded me-2" width="40" height="40">
+                                                        {% else %}
+                                                            <div class="bg-primary bg-opacity-10 rounded me-2 d-flex align-items-center justify-content-center" style="width: 40px; height: 40px;">
+                                                                <i class="fas fa-book text-primary"></i>
+                                                            </div>
+                                                        {% endif %}
+                                                        <div>
+                                                            <strong>{{ tutorial.title }}</strong>
+                                                            <br>
+                                                            <small class="text-muted">{{ tutorial.description|truncatewords:5 }}</small>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td>{{ tutorial.created_at|date:"M d, Y" }}</td>
+                                                <td>
+                                                    <div class="btn-group btn-group-sm" role="group">
+                                                        <a href="{% url 'tutorial_detail' tutorial.id %}" class="btn btn-outline-primary" title="View">
+                                                            <i class="fas fa-eye"></i>
+                                                        </a>
+                                                        <a href="{% url 'edit_tutorial' tutorial.id %}" class="btn btn-outline-secondary" title="Edit">
+                                                            <i class="fas fa-edit"></i>
+                                                        </a>
+                                                        <button type="button" class="btn btn-outline-danger" 
+                                                                data-bs-toggle="modal" data-bs-target="#deleteModal{{ tutorial.id }}" title="Delete">
+                                                            <i class="fas fa-trash"></i>
+                                                        </button>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            
+                                            <!-- Delete Confirmation Modal -->
+                                            <div class="modal fade" id="deleteModal{{ tutorial.id }}" tabindex="-1" aria-labelledby="deleteModalLabel{{ tutorial.id }}" aria-hidden="true">
+                                                <div class="modal-dialog">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title" id="deleteModalLabel{{ tutorial.id }}">Confirm Delete</h5>
+                                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            Are you sure you want to delete the tutorial "<strong>{{ tutorial.title }}</strong>"? This action cannot be undone.
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                                            <form method="post" action="{% url 'delete_tutorial' tutorial.id %}" class="d-inline">
+                                                                {% csrf_token %}
+                                                                <button type="submit" class="btn btn-danger">Delete</button>
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            {% endfor %}
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="text-center mt-3">
+                                    <a href="#tutorials-all" class="btn btn-outline-primary btn-sm" data-bs-toggle="modal" data-bs-target="#allTutorialsModal">
+                                        View All Tutorials ({{ user_tutorials.count }})
+                                    </a>
+                                </div>
+                            {% else %}
+                                <div class="text-center py-5">
+                                    <i class="fas fa-book fa-3x text-muted mb-3"></i>
+                                    <h5>No tutorials yet</h5>
+                                    <p class="text-muted">Create your first tutorial to get started.</p>
+                                    <a href="{% url 'add_tutorial' %}" class="btn btn-primary">
+                                        <i class="fas fa-plus me-1"></i>Create Tutorial
+                                    </a>
+                                </div>
+                            {% endif %}
+                        </div>
+                        
+                        <!-- Articles Tab -->
+                        <div class="tab-pane fade" id="articles" role="tabpanel">
+                            {% if user_articles %}
+                                <div class="table-responsive">
+                                    <table class="table table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th>Title</th>
+                                                <th>Created</th>
+                                                <th>Actions</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {% for article in user_articles|slice:":5" %}
+                                            <tr>
+                                                <td>
+                                                    <div class="d-flex align-items-center">
+                                                        <div class="bg-info bg-opacity-10 rounded me-2 d-flex align-items-center justify-content-center" style="width: 40px; height: 40px;">
+                                                            <i class="fas fa-newspaper text-info"></i>
+                                                        </div>
+                                                        <div>
+                                                            <strong>{{ article.title }}</strong>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td>{{ article.created_at|date:"M d, Y" }}</td>
+                                                <td>
+                                                    <div class="btn-group btn-group-sm" role="group">
+                                                        <a href="{% url 'article_detail' article.id %}" class="btn btn-outline-primary" title="View">
+                                                            <i class="fas fa-eye"></i>
+                                                        </a>
+                                                        <a href="{% url 'edit_article' article.id %}" class="btn btn-outline-secondary" title="Edit">
+                                                            <i class="fas fa-edit"></i>
+                                                        </a>
+                                                        <button type="button" class="btn btn-outline-danger" 
+                                                                data-bs-toggle="modal" data-bs-target="#deleteArticleModal{{ article.id }}" title="Delete">
+                                                            <i class="fas fa-trash"></i>
+                                                        </button>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            
+                                            <!-- Delete Confirmation Modal -->
+                                            <div class="modal fade" id="deleteArticleModal{{ article.id }}" tabindex="-1" aria-labelledby="deleteArticleModalLabel{{ article.id }}" aria-hidden="true">
+                                                <div class="modal-dialog">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title" id="deleteArticleModalLabel{{ article.id }}">Confirm Delete</h5>
+                                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            Are you sure you want to delete the article "<strong>{{ article.title }}</strong>"? This action cannot be undone.
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                                            <form method="post" action="{% url 'delete_article' article.id %}" class="d-inline">
+                                                                {% csrf_token %}
+                                                                <button type="submit" class="btn btn-danger">Delete</button>
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            {% endfor %}
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="text-center mt-3">
+                                    <a href="#articles-all" class="btn btn-outline-primary btn-sm" data-bs-toggle="modal" data-bs-target="#allArticlesModal">
+                                        View All Articles ({{ user_articles.count }})
+                                    </a>
+                                </div>
+                            {% else %}
+                                <div class="text-center py-5">
+                                    <i class="fas fa-newspaper fa-3x text-muted mb-3"></i>
+                                    <h5>No articles yet</h5>
+                                    <p class="text-muted">Create your first article to get started.</p>
+                                    <a href="{% url 'add_article' %}" class="btn btn-primary">
+                                        <i class="fas fa-plus me-1"></i>Create Article
+                                    </a>
+                                </div>
+                            {% endif %}
+                        </div>
+                        
+                        <!-- Snippets Tab -->
+                        <div class="tab-pane fade" id="snippets" role="tabpanel">
+                            {% if user_snippets %}
+                                <div class="table-responsive">
+                                    <table class="table table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th>Title</th>
+                                                <th>Language</th>
+                                                <th>Created</th>
+                                                <th>Actions</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {% for snippet in user_snippets|slice:":5" %}
+                                            <tr>
+                                                <td>
+                                                    <div class="d-flex align-items-center">
+                                                        <div class="bg-warning bg-opacity-10 rounded me-2 d-flex align-items-center justify-content-center" style="width: 40px; height: 40px;">
+                                                            <i class="fas fa-code text-warning"></i>
+                                                        </div>
+                                                        <div>
+                                                            <strong>{{ snippet.title }}</strong>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <span class="badge bg-secondary">{{ snippet.get_language_display }}</span>
+                                                </td>
+                                                <td>{{ snippet.created_at|date:"M d, Y" }}</td>
+                                                <td>
+                                                    <div class="btn-group btn-group-sm" role="group">
+                                                        <a href="#" class="btn btn-outline-primary" title="View">
+                                                            <i class="fas fa-eye"></i>
+                                                        </a>
+                                                        <a href="#" class="btn btn-outline-secondary" title="Edit">
+                                                            <i class="fas fa-edit"></i>
+                                                        </a>
+                                                        <button type="button" class="btn btn-outline-danger" title="Delete">
+                                                            <i class="fas fa-trash"></i>
+                                                        </button>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            {% endfor %}
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="text-center mt-3">
+                                    <a href="#" class="btn btn-outline-primary btn-sm">
+                                        View All Snippets ({{ user_snippets.count }})
+                                    </a>
+                                </div>
+                            {% else %}
+                                <div class="text-center py-5">
+                                    <i class="fas fa-code fa-3x text-muted mb-3"></i>
+                                    <h5>No snippets yet</h5>
+                                    <p class="text-muted">Create your first code snippet to get started.</p>
+                                    <a href="#" class="btn btn-primary">
+                                        <i class="fas fa-plus me-1"></i>Create Snippet
+                                    </a>
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Right Column - Sidebar -->
+        <div class="col-lg-4">
+            <!-- Recent Activity -->
+            <div class="card border-0 shadow-sm mb-4">
+                <div class="card-header bg-white border-bottom">
+                    <h5 class="mb-0">Recent Activity</h5>
+                </div>
+                <div class="card-body">
+                    <div class="list-group list-group-flush">
+                        <div class="list-group-item border-0 px-0 py-3">
+                            <div class="d-flex">
+                                <div class="flex-shrink-0">
+                                    <div class="bg-primary bg-opacity-10 rounded-circle p-2">
+                                        <i class="fas fa-book text-primary"></i>
+                                    </div>
+                                </div>
+                                <div class="flex-grow-1 ms-3">
+                                    <h6 class="mb-1">New tutorial published</h6>
+                                    <p class="mb-1 text-muted">"Advanced Python Techniques"</p>
+                                    <small class="text-muted">2 hours ago</small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="list-group-item border-0 px-0 py-3">
+                            <div class="d-flex">
+                                <div class="flex-shrink-0">
+                                    <div class="bg-success bg-opacity-10 rounded-circle p-2">
+                                        <i class="fas fa-comment text-success"></i>
+                                    </div>
+                                </div>
+                                <div class="flex-grow-1 ms-3">
+                                    <h6 class="mb-1">New comment received</h6>
+                                    <p class="mb-1 text-muted">On "JavaScript Fundamentals"</p>
+                                    <small class="text-muted">5 hours ago</small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="list-group-item border-0 px-0 py-3">
+                            <div class="d-flex">
+                                <div class="flex-shrink-0">
+                                    <div class="bg-info bg-opacity-10 rounded-circle p-2">
+                                        <i class="fas fa-share-alt text-info"></i>
+                                    </div>
+                                </div>
+                                <div class="flex-grow-1 ms-3">
+                                    <h6 class="mb-1">Tutorial shared</h6>
+                                    <p class="mb-1 text-muted">"Django Web Development" (24 times)</p>
+                                    <small class="text-muted">1 day ago</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quick Actions -->
+            <div class="card border-0 shadow-sm mb-4">
+                <div class="card-header bg-white border-bottom">
+                    <h5 class="mb-0">Quick Actions</h5>
+                </div>
+                <div class="card-body">
+                    <div class="d-grid gap-2">
+                        <a href="{% url 'add_tutorial' %}" class="btn btn-outline-primary">
+                            <i class="fas fa-book me-2"></i>Create Tutorial
+                        </a>
+                        <a href="{% url 'add_article' %}" class="btn btn-outline-secondary">
+                            <i class="fas fa-newspaper me-2"></i>Create Article
+                        </a>
+                        <a href="#" class="btn btn-outline-info">
+                            <i class="fas fa-code me-2"></i>Create Snippet
+                        </a>
+                        <a href="#" class="btn btn-outline-success">
+                            <i class="fas fa-chart-line me-2"></i>View Analytics
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Upcoming Tasks -->
+            <div class="card border-0 shadow-sm">
+                <div class="card-header bg-white border-bottom">
+                    <h5 class="mb-0">Upcoming Tasks</h5>
+                </div>
+                <div class="card-body">
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item border-0 px-0 py-2">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <span>Update "React.js Fundamentals"</span>
+                                <span class="badge bg-warning">2 days</span>
+                            </div>
+                        </li>
+                        <li class="list-group-item border-0 px-0 py-2">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <span>Review tutorial comments</span>
+                                <span class="badge bg-info">1 week</span>
+                            </div>
+                        </li>
+                        <li class="list-group-item border-0 px-0 py-2">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <span>Create Python tutorial</span>
+                                <span class="badge bg-success">2 weeks</span>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- All Tutorials Modal -->
+<div class="modal fade" id="allTutorialsModal" tabindex="-1" aria-labelledby="allTutorialsModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="allTutorialsModalLabel">All Your Tutorials</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>Title</th>
+                                <th>Created</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for tutorial in user_tutorials %}
+                            <tr>
+                                <td>
+                                    <div class="d-flex align-items-center">
+                                        {% if tutorial.image %}
+                                            <img src="{{ tutorial.image.url }}" alt="{{ tutorial.title }}" class="rounded me-2" width="40" height="40">
+                                        {% else %}
+                                            <div class="bg-primary bg-opacity-10 rounded me-2 d-flex align-items-center justify-content-center" style="width: 40px; height: 40px;">
+                                                <i class="fas fa-book text-primary"></i>
+                                            </div>
+                                        {% endif %}
+                                        <div>
+                                            <strong>{{ tutorial.title }}</strong>
+                                            <br>
+                                            <small class="text-muted">{{ tutorial.description|truncatewords:5 }}</small>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>{{ tutorial.created_at|date:"M d, Y" }}</td>
+                                <td>
+                                    <div class="btn-group btn-group-sm" role="group">
+                                        <a href="{% url 'tutorial_detail' tutorial.id %}" class="btn btn-outline-primary" title="View">
+                                            <i class="fas fa-eye"></i>
+                                        </a>
+                                        <a href="{% url 'edit_tutorial' tutorial.id %}" class="btn btn-outline-secondary" title="Edit">
+                                            <i class="fas fa-edit"></i>
+                                        </a>
+                                        <button type="button" class="btn btn-outline-danger" 
+                                                data-bs-toggle="modal" data-bs-target="#deleteModal{{ tutorial.id }}" title="Delete">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- All Articles Modal -->
+<div class="modal fade" id="allArticlesModal" tabindex="-1" aria-labelledby="allArticlesModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="allArticlesModalLabel">All Your Articles</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>Title</th>
+                                <th>Created</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for article in user_articles %}
+                            <tr>
+                                <td>
+                                    <div class="d-flex align-items-center">
+                                        <div class="bg-info bg-opacity-10 rounded me-2 d-flex align-items-center justify-content-center" style="width: 40px; height: 40px;">
+                                            <i class="fas fa-newspaper text-info"></i>
+                                        </div>
+                                        <div>
+                                            <strong>{{ article.title }}</strong>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>{{ article.created_at|date:"M d, Y" }}</td>
+                                <td>
+                                    <div class="btn-group btn-group-sm" role="group">
+                                        <a href="{% url 'article_detail' article.id %}" class="btn btn-outline-primary" title="View">
+                                            <i class="fas fa-eye"></i>
+                                        </a>
+                                        <a href="{% url 'edit_article' article.id %}" class="btn btn-outline-secondary" title="Edit">
+                                            <i class="fas fa-edit"></i>
+                                        </a>
+                                        <button type="button" class="btn btn-outline-danger" 
+                                                data-bs-toggle="modal" data-bs-target="#deleteArticleModal{{ article.id }}" title="Delete">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

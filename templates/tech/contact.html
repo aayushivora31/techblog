@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+
+{% block title %}Contact Us - TechBlog{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <h1 class="mb-4 text-center">Contact Us</h1>
+            
+            <div class="card border-0 shadow-sm">
+                <div class="card-body">
+                    <p class="lead text-center mb-4">
+                        Have questions or feedback? We'd love to hear from you!
+                    </p>
+                    
+                    <form method="POST">
+                        {% csrf_token %}
+                        
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="name" class="form-label">Name</label>
+                                <input type="text" class="form-control" id="name" name="name" required>
+                            </div>
+                            
+                            <div class="col-md-6 mb-3">
+                                <label for="email" class="form-label">Email</label>
+                                <input type="email" class="form-control" id="email" name="email" required>
+                            </div>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="message" class="form-label">Message</label>
+                            <textarea class="form-control" id="message" name="message" rows="5" required></textarea>
+                        </div>
+                        
+                        <div class="d-grid">
+                            <button type="submit" class="btn btn-primary btn-lg">Send Message</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            
+            <div class="row mt-5">
+                <div class="col-md-4 text-center">
+                    <div class="contact-icon bg-primary text-white rounded-circle mx-auto mb-3">
+                        <i class="fas fa-map-marker-alt fa-2x"></i>
+                    </div>
+                    <h5>Our Location</h5>
+                    <p class="text-muted">San Francisco, CA</p>
+                </div>
+                
+                <div class="col-md-4 text-center">
+                    <div class="contact-icon bg-success text-white rounded-circle mx-auto mb-3">
+                        <i class="fas fa-envelope fa-2x"></i>
+                    </div>
+                    <h5>Email Us</h5>
+                    <p class="text-muted">contact@techblog.com</p>
+                </div>
+                
+                <div class="col-md-4 text-center">
+                    <div class="contact-icon bg-info text-white rounded-circle mx-auto mb-3">
+                        <i class="fas fa-phone fa-2x"></i>
+                    </div>
+                    <h5>Call Us</h5>
+                    <p class="text-muted">+1 (555) 123-4567</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

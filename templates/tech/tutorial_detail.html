@@ -1,0 +1,221 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ tutorial.title }} - TechBlog{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <article class="fade-in-up">
+                <header class="mb-4">
+                    <h1 class="display-5 fw-bold mb-3">{{ tutorial.title }}</h1>
+                    <div class="d-flex align-items-center text-muted mb-3">
+                        <div class="avatar bg-primary text-white rounded-circle d-flex align-items-center justify-content-center me-3" style="width: 40px; height: 40px;">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <div>
+                            <div class="fw-medium">{{ tutorial.author.username }}</div>
+                            <div class="small">
+                                <i class="far fa-calendar me-1"></i>
+                                {{ tutorial.created_at|date:"F d, Y" }}
+                                {% if tutorial.updated_at != tutorial.created_at %}
+                                <span class="mx-2">•</span>
+                                <i class="far fa-clock me-1"></i>
+                                Updated {{ tutorial.updated_at|date:"F d, Y" }}
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </header>
+                
+                {% if tutorial.image %}
+                <div class="mb-4">
+                    <img src="{{ tutorial.image.url }}" alt="{{ tutorial.title }}" class="img-fluid rounded shadow">
+                </div>
+                {% endif %}
+                
+                <div class="article-content">
+                    <p class="lead mb-4">{{ tutorial.description }}</p>
+                    <div class="tutorial-content">
+                        {{ tutorial.content|linebreaks }}
+                    </div>
+                </div>
+                
+                <div class="border-top pt-4 mt-4">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <a href="{% url 'tutorials' %}" class="btn btn-outline-primary">
+                            <i class="fas fa-arrow-left me-2"></i>Back to Tutorials
+                        </a>
+                        <div class="d-flex gap-2">
+                            <button class="btn btn-outline-secondary" id="shareBtn">
+                                <i class="fas fa-share-alt"></i>
+                            </button>
+                            <button class="btn btn-outline-success" id="likeBtn">
+                                <i class="far fa-heart"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </article>
+            
+            <!-- Related Tutorials Section -->
+            <section class="mt-5 fade-in-up">
+                <h3 class="mb-4">Related Tutorials</h3>
+                <div class="row g-4">
+                    <div class="col-md-6">
+                        <div class="card h-100 border-0 shadow-sm hover-effect">
+                            <div class="card-body">
+                                <h5 class="card-title">Getting Started with Python</h5>
+                                <p class="card-text">Learn the basics of Python programming language.</p>
+                                <a href="#" class="btn btn-primary">Read Tutorial</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="card h-100 border-0 shadow-sm hover-effect">
+                            <div class="card-body">
+                                <h5 class="card-title">JavaScript Fundamentals</h5>
+                                <p class="card-text">Master the essentials of JavaScript.</p>
+                                <a href="#" class="btn btn-primary">Read Tutorial</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+</div>
+
+<style>
+.article-content {
+    font-size: 1.1rem;
+    line-height: 1.7;
+}
+
+.article-content p {
+    margin-bottom: 1.5rem;
+}
+
+.avatar {
+    font-size: 0.9rem;
+}
+
+.article-content img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    margin: 1.5rem 0;
+}
+
+.article-content h2 {
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid #eee;
+}
+
+.article-content h3 {
+    margin-top: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+.article-content ul, .article-content ol {
+    margin-bottom: 1.5rem;
+    padding-left: 2rem;
+}
+
+.article-content li {
+    margin-bottom: 0.5rem;
+}
+
+.article-content blockquote {
+    border-left: 4px solid #667eea;
+    padding: 1rem 1.5rem;
+    margin: 1.5rem 0;
+    background-color: #f8f9fa;
+    border-radius: 0 8px 8px 0;
+}
+
+.article-content code {
+    background-color: #f1f3f4;
+    padding: 0.2rem 0.4rem;
+    border-radius: 4px;
+    font-size: 0.9rem;
+}
+
+.article-content pre {
+    background-color: #2d2d2d;
+    color: #f8f8f2;
+    padding: 1rem;
+    border-radius: 8px;
+    overflow-x: auto;
+    margin: 1.5rem 0;
+}
+
+.article-content pre code {
+    background: none;
+    padding: 0;
+}
+
+.tutorial-content {
+    /* Ensure content is visible */
+    display: block;
+    word-wrap: break-word;
+}
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    console.log('Tutorial detail page loaded');
+    console.log('Tutorial title:', document.querySelector('h1')?.textContent);
+    
+    // Share button functionality
+    const shareBtn = document.getElementById('shareBtn');
+    if (shareBtn) {
+        shareBtn.addEventListener('click', function() {
+            if (navigator.share) {
+                navigator.share({
+                    title: document.title,
+                    url: window.location.href
+                }).catch(console.error);
+            } else {
+                // Fallback for browsers that don't support Web Share API
+                const textArea = document.createElement('textarea');
+                textArea.value = window.location.href;
+                document.body.appendChild(textArea);
+                textArea.select();
+                document.execCommand('copy');
+                document.body.removeChild(textArea);
+                
+                // Show feedback
+                const originalHTML = shareBtn.innerHTML;
+                shareBtn.innerHTML = '<i class="fas fa-check"></i> Copied!';
+                setTimeout(() => {
+                    shareBtn.innerHTML = originalHTML;
+                }, 2000);
+            }
+        });
+    }
+    
+    // Like button functionality
+    const likeBtn = document.getElementById('likeBtn');
+    if (likeBtn) {
+        likeBtn.addEventListener('click', function() {
+            const icon = likeBtn.querySelector('i');
+            if (icon.classList.contains('far')) {
+                icon.classList.remove('far');
+                icon.classList.add('fas');
+                likeBtn.classList.remove('btn-outline-success');
+                likeBtn.classList.add('btn-success');
+            } else {
+                icon.classList.remove('fas');
+                icon.classList.add('far');
+                likeBtn.classList.remove('btn-success');
+                likeBtn.classList.add('btn-outline-success');
+            }
+        });
+    }
+});
+</script>
+{% endblock %}

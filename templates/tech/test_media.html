@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block title %}Test Media - TechBlog{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row">
+        <div class="col-12">
+            <h1>Media File Test</h1>
+            
+            <div class="card mb-4">
+                <div class="card-body">
+                    <h3>Django Settings</h3>
+                    <p><strong>DEBUG:</strong> {{ debug }}</p>
+                    <p><strong>MEDIA_URL:</strong> {{ media_url }}</p>
+                    <p><strong>MEDIA_ROOT:</strong> {{ media_root }}</p>
+                </div>
+            </div>
+            
+            {% if tutorial %}
+            <div class="card mb-4">
+                <div class="card-body">
+                    <h3>Tutorial Image Info</h3>
+                    <p><strong>Title:</strong> {{ tutorial.title }}</p>
+                    <p><strong>Image URL:</strong> {{ tutorial.image.url }}</p>
+                    <p><strong>Image Path:</strong> {{ tutorial.image.path }}</p>
+                    <p><strong>File Exists:</strong> {{ file_exists }}</p>
+                    
+                    <h4>Image Preview:</h4>
+                    <img src="{{ tutorial.image.url }}" alt="{{ tutorial.title }}" class="img-fluid" style="max-height: 300px;">
+                </div>
+            </div>
+            {% else %}
+            <div class="alert alert-warning">
+                <h4>No tutorial found with image</h4>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}

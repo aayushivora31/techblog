@@ -1,0 +1,203 @@
+{% extends 'base.html' %}
+
+{% block title %}Home - TechBlog{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="hero-section bg-primary text-white">
+    <div class="container py-5">
+        <div class="row align-items-center">
+            <div class="col-lg-6 fade-in-up">
+                <h1 class="display-4 fw-bold mb-4" style="font-family: 'Segoe UI', 'Roboto', sans-serif;">Welcome to TechBlog</h1>
+                <p class="lead mb-4" style="font-family: 'Segoe UI', 'Roboto', sans-serif;">Your ultimate resource for tech tutorials, articles, and coding challenges. 
+                Learn, code, and grow with our community of developers.</p>
+                <div class="d-flex gap-3">
+                    <a href="{% url 'tutorials' %}" class="btn btn-light btn-lg" style="font-family: 'Segoe UI', 'Roboto', sans-serif;">Explore Tutorials</a>
+                    <a href="{% url 'contact' %}" class="btn btn-outline-light btn-lg" style="font-family: 'Segoe UI', 'Roboto', sans-serif;">Contact Us</a>
+                </div>
+            </div>
+            <div class="col-lg-6 text-center fade-in-up">
+                <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=600&h=400" 
+                     alt="Coding" class="img-fluid rounded shadow">
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Stats Section -->
+<section class="py-5 bg-light">
+    <div class="container">
+        <div class="row text-center">
+            <div class="col-md-3 mb-4 fade-in-up">
+                <div class="stats-icon bg-primary text-white rounded-circle mx-auto mb-3">
+                    <i class="fas fa-book fa-2x"></i>
+                </div>
+                <h3 class="display-6">25+</h3>
+                <p class="text-muted">Tutorials</p>
+            </div>
+            <div class="col-md-3 mb-4 fade-in-up">
+                <div class="stats-icon bg-success text-white rounded-circle mx-auto mb-3">
+                    <i class="fas fa-newspaper fa-2x"></i>
+                </div>
+                <h3 class="display-6">50+</h3>
+                <p class="text-muted">Articles</p>
+            </div>
+            <div class="col-md-3 mb-4 fade-in-up">
+                <div class="stats-icon bg-info text-white rounded-circle mx-auto mb-3">
+                    <i class="fas fa-code fa-2x"></i>
+                </div>
+                <h3 class="display-6">100+</h3>
+                <p class="text-muted">Snippets</p>
+            </div>
+            <div class="col-md-3 mb-4 fade-in-up">
+                <div class="stats-icon bg-warning text-white rounded-circle mx-auto mb-3">
+                    <i class="fas fa-users fa-2x"></i>
+                </div>
+                <h3 class="display-6">10K+</h3>
+                <p class="text-muted">Developers</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Features Section -->
+<section class="py-5">
+    <div class="container">
+        <div class="text-center mb-5 fade-in-up">
+            <h2 class="display-5 fw-bold" style="font-family: 'Segoe UI', 'Roboto', sans-serif;">What We Offer</h2>
+            <p class="text-muted lead" style="font-family: 'Segoe UI', 'Roboto', sans-serif;">Explore our comprehensive learning resources</p>
+        </div>
+        
+        <div class="row g-4">
+            <div class="col-md-4 fade-in-up">
+                <div class="card h-100 border-0 shadow-sm hover-effect">
+                    <div class="card-body text-center">
+                        <div class="feature-icon bg-primary text-white rounded-circle mx-auto mb-4">
+                            <i class="fas fa-book fa-2x"></i>
+                        </div>
+                        <h5 class="card-title" style="font-family: 'Segoe UI', 'Roboto', sans-serif;">Tutorials</h5>
+                        <p class="card-text" style="font-family: 'Segoe UI', 'Roboto', sans-serif;">Step-by-step guides on various programming languages and frameworks.</p>
+                        <a href="{% url 'tutorials' %}" class="btn btn-outline-primary" style="font-family: 'Segoe UI', 'Roboto', sans-serif;">Learn More</a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-4 fade-in-up">
+                <div class="card h-100 border-0 shadow-sm hover-effect">
+                    <div class="card-body text-center">
+                        <div class="feature-icon bg-success text-white rounded-circle mx-auto mb-4">
+                            <i class="fas fa-newspaper fa-2x"></i>
+                        </div>
+                        <h5 class="card-title" style="font-family: 'Segoe UI', 'Roboto', sans-serif;">Articles</h5>
+                        <p class="card-text" style="font-family: 'Segoe UI', 'Roboto', sans-serif;">In-depth articles on tech trends, best practices, and industry insights.</p>
+                        <a href="{% url 'articles' %}" class="btn btn-outline-success" style="font-family: 'Segoe UI', 'Roboto', sans-serif;">Read Articles</a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-4 fade-in-up">
+                <div class="card h-100 border-0 shadow-sm hover-effect">
+                    <div class="card-body text-center">
+                        <div class="feature-icon bg-info text-white rounded-circle mx-auto mb-4">
+                            <i class="fas fa-code fa-2x"></i>
+                        </div>
+                        <h5 class="card-title" style="font-family: 'Segoe UI', 'Roboto', sans-serif;">Code Snippets</h5>
+                        <p class="card-text" style="font-family: 'Segoe UI', 'Roboto', sans-serif;">Ready-to-use code snippets for common programming tasks.</p>
+                        <a href="{% url 'snippets' %}" class="btn btn-outline-info" style="font-family: 'Segoe UI', 'Roboto', sans-serif;">View Snippets</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Recent Content Section -->
+<section class="py-3 bg-light">
+    <div class="container">
+        <div class="text-center mb-4 fade-in-up">
+            <h2 class="display-5 fw-bold" style="font-family: 'Segoe UI', 'Roboto', sans-serif;">Latest From TechBlog</h2>
+            <p class="text-muted lead" style="font-family: 'Segoe UI', 'Roboto', sans-serif;">Stay updated with our newest content</p>
+        </div>
+        
+        <div class="row g-4">
+            <div class="col-lg-4 fade-in-up">
+                <div class="card border-0 shadow-sm hover-effect">
+                    <div class="card-header bg-primary text-white">
+                        <h5 class="mb-0" style="font-family: 'Segoe UI', 'Roboto', sans-serif;"><i class="fas fa-book me-2"></i>Latest Tutorials</h5>
+                    </div>
+                    <div class="card-body">
+                        <ul class="list-unstyled">
+                            <li class="mb-3">
+                                <h6 class="mb-1" style="font-family: 'Segoe UI', 'Roboto', sans-serif;">Getting Started with Python</h6>
+                                <small class="text-muted">Learn the basics of Python programming</small>
+                            </li>
+                            <li class="mb-3">
+                                <h6 class="mb-1" style="font-family: 'Segoe UI', 'Roboto', sans-serif;">Django Web Development</h6>
+                                <small class="text-muted">Build web applications with Django</small>
+                            </li>
+                            <li>
+                                <h6 class="mb-1" style="font-family: 'Segoe UI', 'Roboto', sans-serif;">JavaScript Fundamentals</h6>
+                                <small class="text-muted">Master the essentials of JavaScript</small>
+                            </li>
+                        </ul>
+                        <a href="{% url 'tutorials' %}" class="btn btn-primary w-100" style="font-family: 'Segoe UI', 'Roboto', sans-serif;">View All Tutorials</a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-4 fade-in-up">
+                <div class="card border-0 shadow-sm hover-effect">
+                    <div class="card-header bg-success text-white">
+                        <h5 class="mb-0" style="font-family: 'Segoe UI', 'Roboto', sans-serif;"><i class="fas fa-newspaper me-2"></i>Latest Articles</h5>
+                    </div>
+                    <div class="card-body">
+                        <ul class="list-unstyled">
+                            <li class="mb-3">
+                                <h6 class="mb-1" style="font-family: 'Segoe UI', 'Roboto', sans-serif;">The Future of Web Development</h6>
+                                <small class="text-muted">Trends shaping the future of web dev</small>
+                            </li>
+                            <li class="mb-3">
+                                <h6 class="mb-1" style="font-family: 'Segoe UI', 'Roboto', sans-serif;">Best Practices for Code Quality</h6>
+                                <small class="text-muted">Writing clean, maintainable code</small>
+                            </li>
+                            <li>
+                                <h6 class="mb-1" style="font-family: 'Segoe UI', 'Roboto', sans-serif;">Understanding RESTful APIs</h6>
+                                <small class="text-muted">The backbone of modern web services</small>
+                            </li>
+                        </ul>
+                        <a href="{% url 'articles' %}" class="btn btn-success w-100" style="font-family: 'Segoe UI', 'Roboto', sans-serif;">Read All Articles</a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-4 fade-in-up">
+                <div class="card border-0 shadow-sm hover-effect">
+                    <div class="card-header bg-info text-white">
+                        <h5 class="mb-0" style="font-family: 'Segoe UI', 'Roboto', sans-serif;"><i class="fas fa-code me-2"></i>Popular Snippets</h5>
+                    </div>
+                    <div class="card-body">
+                        <ul class="list-unstyled">
+                            <li class="mb-3">
+                                <h6 class="mb-1" style="font-family: 'Segoe UI', 'Roboto', sans-serif;">Hello World in Python</h6>
+                                <small class="text-muted">The classic first program</small>
+                            </li>
+                            <li class="mb-3">
+                                <h6 class="mb-1" style="font-family: 'Segoe UI', 'Roboto', sans-serif;">CSS Flexbox Example</h6>
+                                <small class="text-muted">Modern layout techniques</small>
+                            </li>
+                            <li>
+                                <h6 class="mb-1" style="font-family: 'Segoe UI', 'Roboto', sans-serif;">JavaScript Array Map</h6>
+                                <small class="text-muted">Functional programming in JS</small>
+                            </li>
+                        </ul>
+                        <a href="{% url 'snippets' %}" class="btn btn-info w-100 text-white" style="font-family: 'Segoe UI', 'Roboto', sans-serif;">Browse All Snippets</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Call to Action -->
+
+{% endblock %}
